@@ -21,7 +21,7 @@
 
 
 
-**Dias:** *8 - 12 de Fevereiro, 2021* <br />
+**Dias:** *01 - 05 de Agosto, 2022* <br />
 **Carga Horária:** *15 horas / 3h/aula* <br />
 **Horário:** *19h - 22h* <br />
 
