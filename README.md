@@ -56,7 +56,6 @@ Trabalha como Analista de Dados da Quaest Consultoria e Pesquisa, na área de pr
 Área de atuação e de interesse: Economia Aplicada, Desenvolvimento Econômico, Economia Regional e Complexidade Econômica. <br />
 
 #### Redes Sociais e Contato :mailbox_with_mail: :
-[<img align="left" alt="Arthur Queiroz | ResearchGate" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/researchgate.svg" />][researchgate]
 [<img align="left" alt="Arthur Queiroz" width="22px" src="https://raw.githubusercontent.com/iconic/open-iconic/master/svg/globe.svg" />][website]
 [<img align="left" alt="Arthur Queiroz | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin]
 
@@ -119,7 +118,7 @@ estatísticas. Além disso, embora o público alvo sejam os estudantes do campo 
 
 
 [website]: https://sites.google.com/view/arthur-queiroz/home?authuser=0
-[twitter]: http://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K2970916U4
+[lattes1]: http://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K2970916U4
 [linkedin]: https://www.linkedin.com/in/queirozrarthur/
 
 [researchgate2]: https://www.researchgate.net/profile/Virgilio_Mendes3
