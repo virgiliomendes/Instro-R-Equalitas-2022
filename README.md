@@ -94,7 +94,7 @@ estatísticas. Além disso, embora o público alvo sejam os estudantes do campo 
 
 ## Aulas e Links para Vídeos:
 
-<img align='right' src="https://media.giphy.com/media/5ndklThG9vUUdTmgMn/giphy.gif" width="200">
+<img align='right' src="https://media.giphy.com/media/l2JdTgYZ7VG4EeBVe/giphy.gif" width="200">
 
 
 <br />
