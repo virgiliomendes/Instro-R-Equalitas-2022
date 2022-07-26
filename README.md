@@ -9,13 +9,13 @@
 <p align="center">
   Repositório para o curso de Introdução ao R, ministrado para os alunos do Curso promovido pela EQUALITAS JR.
     <br />
-    <a href="">Instalar</a>
+    <a href="https://github.com/virgiliomendes/Intro-R-Equalitas-2022/blob/main/Guias%20de%20Instala%C3%A7%C3%A3o/Instalando%20R%20e%20RStudio.pdf">Instalar o R</a>
     ·
-    <a href="">Ementa e Programa</a>
+    <a href="https://github.com/virgiliomendes/Intro-R-Equalitas-2022/blob/main/Ementa/Ementa__Curso_R__.pdf">Ementa</a>
     ·
-    <a href="">Aulas</a>
+    <a href="https://github.com/virgiliomendes/Intro-R-Equalitas-2022/tree/main/Curso">Curso e códigos</a>
     .
-  <a href="">Apoio</a>
+  <a href="https://github.com/virgiliomendes/Intro-R-Equalitas-2022/tree/main/Materiais%20de%20Apoio">Apoio</a>
   </p>
 </p>
 
