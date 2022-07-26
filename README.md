@@ -118,7 +118,6 @@ estatísticas. Além disso, embora o público alvo sejam os estudantes do campo 
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 
 
-[researchgate]: 
 [website]: https://sites.google.com/view/arthur-queiroz/home?authuser=0
 [twitter]: http://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K2970916U4
 [linkedin]: https://www.linkedin.com/in/queirozrarthur/
