@@ -101,11 +101,11 @@ estatísticas. Além disso, embora o público alvo sejam os estudantes do campo 
 <br />
 
 
-- Aula 1: Introdução e familiarização do ambiente/ linguagem R. Conceitos básicos de vetores e objetos. :x:
-- Aula 2: Manipulação de dados :heavy_check_mark:
-- Aula 3: Manipulação de dados II :heavy_check_mark:
-- Aula 4: Análise de dados & Estatísticas descritivas :heavy_check_mark:
-- Aula 5: Visualização de dados no R Introdução para a elaboração de gráficos :heavy_check_mark:
+- Aula 1: Introdução e familiarização do ambiente/ linguagem R. Conceitos básicos de vetores e objetos. :heavy_check_mark:
+- Aula 2: Manipulação de dados. :heavy_check_mark:
+- Aula 3: Manipulação de dados II. :heavy_check_mark:
+- Aula 4: Análise de dados & Estatísticas descritivas. :heavy_check_mark:
+- Aula 5: Visualização de dados no R Introdução para a elaboração de gráficos. :heavy_check_mark:
 
 
 
