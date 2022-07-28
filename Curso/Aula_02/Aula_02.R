@@ -176,7 +176,7 @@ rm(list = ls())
 
 
 
-
+##------------------------------------------------------------------------------
 
 
 # A partir daqui é extra, não sei se dá tempo seria: group_by, case_when, summarize
