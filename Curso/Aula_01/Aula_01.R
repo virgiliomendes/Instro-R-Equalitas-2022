@@ -264,3 +264,6 @@ gsub("gosto de", "odeio", frase)  # substituição de caracteres
 gsub("de", "DE", frase)           # função de substituição de caracteres 
                                   # (substituição de "de" por "DE")
 
+# Extra:
+# sugestões de pacotes para trabalhar com texto:
+# pacotes janitor e stringr (pode ser interessante trabalhar com regex)
