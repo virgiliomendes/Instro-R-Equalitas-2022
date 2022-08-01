@@ -1,0 +1,131 @@
+---
+title: "Introdução ao R"
+subtitle: "Curso Básico"
+author: "Arthur Queiroz e Virgílio Mendes"
+date: "01/08/2022"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(scatterplot3d)
+library(ggplot2)
+library(ggthemes)
+attach(mtcars)
+```
+
+## Sobre o R
+
+O R é um ambiente de programação estatístico, desenvolvido por dois acadêmicos: Ross Ihaka e Robert Gentleman na Univesidade de Auckland (Nova Zelândia) em 1993.
+
+Além de um ambiente de programação, o R também é uma linguagem de programação de alto nível:
+
+- É um ambiente porque foi planejado com um conjunto de funcionalidades relacionadas e adaptáveis;
+- É uma linguagem de programação porque permite criar e modificar funções, além de alterar objetos nela;
+- É de alto nível porque não requer do usuário empregar código binário;
+
+## O que o R faz?
+
+São várias as utilidades do R: 
+
+- Criar e usar funções;
+- Abrir, modificar, criar e salvar qualquer tipo de arquivo;
+- Interagir com outros recursos num computador ou servidor;
+- Manipulação de dados (gerar, fatiar, organizar, rearranjar, converter e exportar);
+- Modelagem (aplicar ou desenvolver qualquer modelo estatístico);
+- Visualização (visualizar qualquer tipo de dados de forma simples);
+- Automatização (produzir rotinas, autômatos ou funções).
+
+## O que o R faz?
+
+```{r, warning=F, message=FALSE}
+plot(wt, mpg, main="Scatterplot Example",
+   xlab="Car Weight ", ylab="Miles Per Gallon ", pch=19)
+```
+
+## O que o R faz?
+
+```{r, warning=F, message = FALSE}
+plot(wt, mpg, main="Scatterplot exemplo - Curva de Regressão",
+   xlab="Car Weight ", ylab="Miles Per Gallon ", pch=19)
+abline(lm(mpg~wt), col="red") # regression line (y~x)
+```
+
+## O que o R faz?
+```{r, warning=F, message = FALSE}
+plot(wt, mpg, main="Scatterplot exemplo - Curva de LOESS",
+   xlab="Car Weight ", ylab="Miles Per Gallon ", pch=19)
+lines(lowess(wt,mpg), col="blue") # lowess line (x,y)
+```
+
+## O que o R faz?
+```{r warning=F, message = FALSE}
+
+scatterplot3d(wt,disp,mpg, pch=16, highlight.3d=TRUE,
+  type="h", main="3D Scatterplot Exemplo")
+```
+
+## O que o R faz?
+```{r, warning=F, message = FALSE}
+
+ggplot(mtcars, aes(x=wt, y=mpg)) + 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+## O que o R faz?
+```{r, warning=F, message = FALSE}
+ggplot(mtcars, aes(x=wt, y=mpg)) + 
+  geom_point()+
+  geom_smooth(method=lm) +
+  theme_economist() + 
+  scale_colour_economist() + 
+  labs(title = "Scatterplot Exemplo - The economist")
+```
+
+## O que o R faz?
+```{r, warning=F, message = FALSE}
+g1 = ggplot(mtcars, aes(x=wt, y=mpg)) + 
+  geom_point()+
+  geom_smooth(method=lm) +
+  theme_stata() + 
+  labs(title = "Scatterplot Exemplo - Stata") 
+g2 = ggplot(mtcars, aes(x=wt, y=mpg)) + 
+  geom_point()+
+  geom_smooth(method=lm) +
+  theme_excel() + 
+  labs(title = "Scatterplot Exemplo - Excel")
+
+gridExtra::grid.arrange(g1,g2, nrow = 1 )
+```
+
+## O que o R faz?
+```{r, warning=F}
+x <- rnorm(50)
+y <- rnorm(50)
+
+modelo <- lm(y ~ x)
+summary(modelo)
+```
+
+## O uso do R
+
+O R é uma das principais ferramentas do mercado de trabalho e amplamente utilizado na academia.
+
+Entre suas principais vantagens:
+
+- É gratuito;
+- Envolve uma comunidade extensa de desenvolvedores;
+- Replicabilidade;
+- Integração entre tarefas;
+- Agilidade.
+
+## Nosso curso
+
+O curso tem como objetivo introduzir aos alunos o R. E vamos passar pelas seguintes funcionalidades:
+
+* Sintaxe básica do R (Gramática);
+* Manipulação de dados I;
+* Manipulação de dados II;
+* Análises estatísticas descritivas;
+* Introdução para a elaboração de gráficos.
