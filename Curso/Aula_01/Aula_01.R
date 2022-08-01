@@ -21,9 +21,13 @@ rm(list = ls())
 ### CONVENCOES NO R ------------------------------------------------------------
 
 # Criar um novo objeto com o operador '<-'
-x <- 1
+x <- 1 
 y <- 2
 
+# ou =
+z = 3
+
+# = é diferente de == (um é operador de atribuição o outro é teste lógico)
 
 # Mas perceba que, se nao colocarmos nada depois de '<-', o R retornara um erro
 x <- 1
