@@ -18,26 +18,33 @@
 # Material de Apoio:
 # Dplyr Website: https://dplyr.tidyverse.org/
 # Dplyr Cheat Sheet: https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
-#
+# https://www.tidyverse.org/
 
 ## PREAMBULO -------------------------------------------------------------------
 
 # Instalando o Dplyr:
-#install.packages("dplyr")
 
+# Se os pacotes necessários não estiverem instalados, faça a instalação
+#if (! "dplyr" %in% installed.packages()) install.packages("dplyr")
+#if (! "tidyverse" %in% installed.packages()) install.packages("tidyverse")
 library(dplyr)
-
+library(tidyverse) # conjunto de pacotes
 
 # Limpando nosso ambiente:
 rm(list = ls())
 
 # Setar Diretório (se não estiver usando um projeto)
 setwd(choose.dir())
+setwd()
 getwd()
 
 ##------------------------------------------------------------------------------
 
 # Banco de Dados:
+
+# pacote com datasets no R
+datasets::mtcars
+
 ## Para essa aula usaremos o banco de dados IRIS, já presente no R:
 ## O banco de dados IRIS contem a classificação de diferentes tipos da planta Íris, 
 ## baseado em quatro atributos.
@@ -48,9 +55,6 @@ dim(iris)
 str(iris)
 summary(iris)
 
-
-# pacote com datasets no R
-datasets::mtcars
 
 
 ##------------------------------------------------------------------------------
@@ -175,57 +179,39 @@ db_n
 rm(list = ls())
 
 
-
-##------------------------------------------------------------------------------
-
-
-# A partir daqui é extra, não sei se dá tempo seria: group_by, case_when, summarize
-
-##------------------------------------------------------------------------------
-
-## Split, Apply e Combine:
+# Exercício:-------------------------------------------------------------------
 
 
-### Split, Apply e Combine é um dos processos mais comuns de análise de dados. 
-### Em tradução livre: dividir, aplicar e combinar.
-### No Dplyr, esse processo é representado pelas funções "group_by()" e "summarise()".
-### No entanto, antes vamos aprender o que essas funções fazem:
+###-------
 
-### Group_by(): Agrupa os dados por variáveis fornecidas. Sozinho, o group_by não muda como os dados são
-### mostrados. A mudança vem apenas quando combinado com outros verbos do Dplyr:
-View(group_by(iris, Species))
-View(iris)
+## Utilizando o operador pipe %>%, faça as seguinte estapas apresentadas durante a aula:
+### Partindo do banco "db":
+### 1) Traduza os nomes das variáveis
+### 2) Filtre o banco de dados apenas pelas plantas de tipo "virginica" e que possuam uma
+###     sépala de largura maior do que 3
+### 3) Selecione apenas as variáveis referentes a Sépala;
+### 4) Armazene todo o resultado em um vetor chamado: "sepala"
 
-# Já o ungroup(): desfaz o agrupamento
-# ungroup(db)
+sepala <- db %>%
+  rename(largura_sepala = Sepal.Width, comprimento_sepala = Sepal.Length,
+         largura_petala = Petal.Width, comprimento_petala = Petal.Length,
+         tipo = Species) %>%
+  filter(tipo == "virginica" & largura_sepala > 3) %>%
+  select(largura_sepala, comprimento_sepala)
 
-### Summarise(): resume os dados em uma unica linha de valores
-summarise(iris, avg = mean(Sepal.Length))
-mean(iris$Sepal.Length)
 
-summarise(iris, cont = n())
+## Agora, trabalhando no vetor "sepala":
+### 1) Crie uma variável chamada "sepala_geral", que conterá a soma da largura e comprimento das
+###     sépalas;
+### 2) Crie uma última variável chamada "sepala_media", que conterá a média da "sepala_geral"
+###     LEMBRE-SE DE QUE TEMOS NA'S!
 
-### Contagem: n()
-db %>% 
-  group_by(Species, Petal.Width) %>%
-  summarise(cont = n()) 
+sepala <- sepala %>%
+  mutate(sepala_geral = largura_sepala + comprimento_sepala,
+         sepala_media = mean(sepala_geral, na.rm = T))
+
+sepala
 
 
 
 rm(list = ls())
-
-
-
-## Frequencia
-
-bd %>%
-  group_by(x) %>%
-  summarise(n = n()) %>%
-  mutate(freq = n / sum(n))
-
-iris %>%
-  group_by(Sepal.Length) %>%
-  summarise(n = n()) %>%
-  mutate(perc = round(prop.table(n)*100, 0))
-
-
