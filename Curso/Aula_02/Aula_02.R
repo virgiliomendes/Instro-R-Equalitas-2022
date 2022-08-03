@@ -19,8 +19,14 @@
 # Dplyr Website: https://dplyr.tidyverse.org/
 # Dplyr Cheat Sheet: https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 # https://www.tidyverse.org/
+# https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf
+
+# Comunidades: 
+# R Brasil no Facebook e Telegram
+# https://stackoverflow.com/
 
 ## PREAMBULO -------------------------------------------------------------------
+
 
 # Instalando o Dplyr:
 
@@ -35,8 +41,15 @@ rm(list = ls())
 
 # Setar Diretório (se não estiver usando um projeto)
 setwd(choose.dir())
-setwd()
+setwd("C://Users//Virgilio//Desktop//Projetos 2021//Intro-R-Equalitas-2022//Curso//Aula_02")
+setwd("C:\Users\Virgilio\Desktop\Projetos 2021\Intro-R-Equalitas-2022\Curso")
+
+# Mostrar qual o atual diretorio de trabalho
 getwd()
+
+# Outra forma:
+# CRIAR UM PROJETO
+
 
 ##------------------------------------------------------------------------------
 
