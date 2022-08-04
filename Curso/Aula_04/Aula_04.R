@@ -16,301 +16,206 @@
 # Limpar o environment
 rm(list = ls())
 
-# BASE DE DADOS ----------------------------------------------------------------
+# CARREGA PACOTES --------------------------------------------------------------
 
-# A base de dados iris é uma das mais utilizadas no R para fins pedago'gicos
-# Representa os comprimentos e larguras de se'palas e peta'las para 150
-# flores diferentes.
+# Se os pacotes necessários não estiverem instalados, faça a instalação
+if (! "writexl" %in% installed.packages()) install.packages("writexl")
+if (! "readr" %in% installed.packages()) install.packages("readr")
+if (! "janitor" %in% installed.packages()) install.packages("janitor")
+if (! "readxl" %in% installed.packages()) install.packages("readxl")
+if (! "questionr" %in% installed.packages()) install.packages("questionr")
+if (! "foreign" %in% installed.packages()) install.packages("foreign")
 
-bd = iris   # Carregar o banco
-dim(bd)     # Ver a dimensao (150 observacoes e 5 variaveis)
-names(bd)   # Nome das varia'veis
-str(bd)     # Classe do objetos e das vari'aveis
 
-# Ja' sabemos que as quatros primeiras variáveis são númericas, nesse caso, 
-# podemos tirar algumas estati'stiscas ba'sicas. 
 
-# Com a funcao summary() e' possível tirar estati'sticas descritivas de 
-# todo o banco.
-summary(iris)
-
-# O mesmo pode ser feito para as varia'veis de forma separada
-summary(iris$Sepal.Length)
-
-summary(iris[[1]]) # Outra forma de fazer
-summary(iris[,1])  # Outra alternativa
-
-### ESTATI'STICAS DESCRITIVAS --------------------------------------------------
-
-# Podemos tambe'm analisar apenas algumas estati'sticas que nos interessam: 
-
-# Para a me'dia:
-mean(iris$Petal.Length)
-
-# Para a mediana:
-median(iris$Petal.Length)
-
-# Para a variancia:
-var(iris$Petal.Length)
-
-# Para i desvio padrao:
-sd(iris$Petal.Length)
-
-# Para o valor ma'xima:
-max(iris$Petal.Length)
-
-# Para o valor mi'nimo:
-min(iris$Petal.Length)
-
-# Para trabalhar com varia'veis catego'ricas, as estrate'gias devem ser outras.
-# Podemos utilizar o pacote "descr" para algumas ana'lises.
-# As varia'veis de classe factor sao varia'veis catego'ricas. 
-# Nessa classe, cada categoria tem um label. 
-# Podemos criar uma varia'vel catego'rica entrando com os dados e 
-# definindo os labels, por exemplo:
-
-# Carregar o pacote
-library(descr)
-
-# Criar uma variável catego'rica
-sexo <- factor(x = c("Feminino",
-                     "Masculino",
-                     "Feminino",
-                     "Masculino",
-                     "Feminino",
-                     "Feminino"), 
-               levels = c("Feminino","Masculino"))
-
-sexo
-
-# Ha' uma funcao excelente implementada no pacote descr para tabela
-# de frequencias de uma varia'vel catego'rica. Trata-se da funcao freq().
-
-# A funcao que vamos utilizar é a freq(). 
-# Ela e' utilzada para gerar uma tabela de frequencia de uma varia'vel.
-
-freq(iris$Species) 
-
-freq(sexo)
-
-# Perceba que ao lado, foi gerado um gra'fico automatico. 
-# Para que isso nao acontenca,
-# basta utilizar um parametro da funcao: 
-?freq
-
-freq(iris$Species, plot = F)
-
-freq(sexo, plot = F)
-
-### MANIPULACAO COM OS DADOS USANDO PIPE ---------------------------------------
-
-# Ler bibliotecas 
+# carregando os pacotes
+library(dplyr) # A Grammar of Data Manipulation
 library(tidyverse)
 
-# O pipe (%>%) e' um operador para indicar as operacoes que serao
-# feitas com o banco.
+library(janitor)
+library(readxl) #  Read Excel Files
+library(questionr) # Functions to Make Surveys Processing Easier
+library(foreign) # Leitura de arquivos (ex: SPSS, dta - Stata)
+library(writexl) # Exporta em Excel
+library(readr) # Write Data frame in different formats
 
-# Por exemplo, se quisermos a me'dia das se'palas somente da espe'cie "setosa"
-iris %>% select(Sepal.Length, Species) %>% 
-  filter(Species == "setosa") %>% 
-  summarise(media = mean(Sepal.Length))
+# Tira notação cientifica
+options(scipen = 999)
 
-# Ou da versicolor
-iris %>% select(Sepal.Length, Species) %>% 
-  filter(Species == "versicolor") %>% 
-  summarise(media = mean(Sepal.Length))
+# ------------------------------------------------------------------------------
 
-# Ou da virginica
-iris %>% select(Sepal.Length, Species) %>% 
-  filter(Species == "virginica") %>% 
-  summarise(media = mean(Sepal.Length))
+## Revisão das funções do Dplyr:
+# rename
+# select
+# filter
+# mutate
+# group_by
+# summarize
+# arrange
+# 
+## Criar tabelas com summarize e table
+# 
+## Estatisticas descritivas:
+# min, max, sd, var, median, mean
+# freq
+# describe
 
-# Podemos calcular a media de Sepal.Length para as três espe'cies de flor
-# utilizando o group_by()
+# IMPORTAÇÃO DE DADOS ----------------------------------------------------------
 
-# Vamos guardar os resultados num objeto chamado tabela
+# Explicar as várias formas de importar e exportar dados
 
-tabela = iris %>% 
-  group_by(Species) %>% 
-  summarise(m = mean(Sepal.Length))
+# carregar banco de bados iris (inato do r)
+bd = iris
 
-tabela = iris %>% 
-  group_by(Species) %>% 
-  summarise(m = mean(Sepal.Length)) %>% 
-  mutate(m2 = m^2) 
+# ver o diretorio de trabalho
+getwd()
+# setar diretório de trabalho
+setwd("C:/Users/Virgilio/Desktop/Intro_R_2021/Aulas/Aula 02")
 
-# Verificar os resultados
+# OU PROJETO
 
-tabela
+# carrega banco em formato CSV com separador ";"
+bd = read.csv2("dados_eleicao.csv")
+# carrega banco em formato CSV com separador ","
+bd = read.csv("dados_eleicao.csv")
 
-# Agora vamos calcular todas as estati'sticas descritivas para a varia'vel
-# que indica a largura das pe'talas (Petal.Width)
-iris %>% summarise(m = mean(Petal.Width),
-                   med = median(Petal.Width),
-                   variancia = var(Petal.Width),
-                   desv = sd(Petal.Width))
+# salva em formato CSV com separador ";"
+write_csv2(bd, "teste.csv")
+# salva em formato CSV com separador ","
+write_csv(bd, "teste.csv")
 
-# Fazendo um exerci'cio semelhante, mas considerando o resultado por espe'cie
-iris %>% 
-  group_by(Species) %>% 
-  summarise(m = mean(Petal.Width),
-            med = median(Petal.Width),
-            variancia = var(Petal.Width),
-            desv = sd(Petal.Width))
 
-### EXERCI'CIO -----------------------------------------------------------------
+# carrega banco em formato excel
+bd = read_excel("banco.xlsx")
+# quando há mais de uma sheet ou aba no arquivo excel, 
+# usar o comando ", sheet = <nome.da.aba>"
+write_xlsx(bd , "teste.xlsx")
 
-# Como exemplo, vamos utilizar uma base que conte'm a votacao de cada 
-# candidato/a a deputado/a federal apenas na cidade de BH em 2014.
-# A varia'vel "TOTAL_VOTOS" representa a quantidade de votos.
+# carrega banco em formato RDS
+bd = readRDS("teste.RDS")
+# Salva em formato RDS
+write_rds(bd, "teste.RDS") # da funçao readr - mais eficiente
+saveRDS(bd, "teste.RDS") # R Base
 
-# Carregar o pacote da funcao read_csv
-library(readr)
+# Pacote Janitor -------------------------------------------------------------------
 
-# Carregar o pacote que define o direto'rio deste arquivo
-library(here)
+# clean_names()
 
-# Carregar a base de dados
-dados_eleicao <- read_csv(here("dados_eleicao.csv"))
+bd = read_excel("banco.xlsx") %>% clean_names()
 
-# 1 - Qual foi o deputado com maior nu'mero de votos? --------------------------
+# TRATANDO NAs -----------------------------------------------------------------
 
-# Forma 1.1
-max(dados_eleicao$TOTAL_VOTOS)
-dados_max = filter(dados_eleicao, `TOTAL_VOTOS` == 80262)
-dados_max
 
-# Forma 1.2
-dados_max = filter(dados_eleicao, 
-                   TOTAL_VOTOS == max(dados_eleicao$TOTAL_VOTOS))
-dados_max
+# soma quantos NAs tem no banco ou variavel
+sum(is.na(bd$ANO_ELEICAO))
 
-# Forma 1.3
-dados_eleicao %>% 
-  filter(TOTAL_VOTOS == 80262)
+# achando NA: missing
+which(is.na(bd$ANO_ELEICAO)) # Encontra NA pela posição
 
-# Forma 1.4
-dados_max <- arrange(dados_eleicao, -TOTAL_VOTOS) # Ordena de acordo com o 
-                                                  # nu'mero de votos
+# detectando padrões:
+str_detect(bd$NOME_CANDIDATO, "NA")
 
-slice(dados_max, 1)   # Apresenta so' a primeira linha
-head(dados_max)       # Apresenta os primeiros
-dados_max[1,]         # Mostra a primeira linha
+# tranformando NA em 0
+bd[, 1:4][is.na(bd_data[, 1:4])] <- 0
 
-# 2 - Qual foi o deputado com menor número de votos? ---------------------------
 
-min(dados_eleicao$TOTAL_VOTOS)
+# tirando na do banco
+bd <- na.omit(bd)
 
-dados_min = filter(dados_eleicao,
-                   TOTAL_VOTOS == min(dados_eleicao$TOTAL_VOTOS))
+# TRATANDO VARIAVEIS -----------------------------------------------------------
 
-summary(dados_eleicao$TOTAL_VOTOS)
 
-# 3 - Quais são os deputados top 5? --------------------------------------------
+# Tirando espaço em branco no inicio e no final
+ob = " oi, meu nome é Pablo! "
+str_trim(ob, side = "left")
+str_trim(ob, side = "right")
+str_trim(ob, side = "both")
 
-dados_top5 <- arrange(dados_eleicao, -TOTAL_VOTOS)
-slice(dados_top5, 1:5)
 
-# 4 - Qual a média de votação?
+# Padronização
 
-mean(dados_eleicao$TOTAL_VOTOS)
+# str_replace(x, pattern, replacement) #replaces the matches with new text.
 
-# 5 - Considere que quem teve 0 votos, seja NA ou não esteja na base. 
-# Qual seria a média? ----------------------------------------------------------
+bd$SIGLA_UF <- stringr::str_replace_all(bd$SIGLA_UF, "MG", "_MG_")
+bd$SIGLA_UF[1:20]
 
-dados_med = filter(dados_eleicao, TOTAL_VOTOS > 0)   # Filtra somente > 0
+bd$NOME_MUNICIPIO <- stringr::str_replace_all(bd$NOME_MUNICIPIO, " BELO HORIZONTE ", "BELO HORIZONTE")
+bd$NOME_MUNICIPIO[10:20]
 
-dados_med = filter(dados_eleicao, TOTAL_VOTOS != 0)  # Filtra somente diferente
-                                                     # de 0 
 
-mean(dados_med$TOTAL_VOTOS) # Sobe de 1.747 para 1.818
+# str_detect(x, pattern) #tells you if there’s any match to the pattern.
+bd$NOME_MUNICIPIO[str_detect(bd$NOME_MUNICIPIO, " BELO HORIZONTE|BELO HORIZONTE | BELO HORIZONTE ")] = "BELO HORIZONTE"
 
-# 6 - Quais partidos tiveram maior quantidade de deputados? --------------------
 
-# Calcula a frequencia de cada partido
-t <- freq(dados_eleicao$SIGLA_PARTIDO, plot = F) 
 
-t = as.data.frame(t)        # Transforma em Data Frame
-arrange(t, -Frequência)     # Ordena do maior para o menor
+# CASE WHEN---------------------------------------------------------------------
 
-# 7 - Qual a média de votação do PT? -------------------------------------------
+# banco voto e eleições
+# criar variavel de eleito e não eleito a partir da quantidade de votos
+# suport que mais de 500 votos foram eleitos
 
-dados_pt = filter(dados, SIGLA_PARTIDO == "PT") # Filtra somente o PT
-mean(dados_pt$TOTAL_VOTOS)                      # Calculamos a me'dia
+bd <- bd %>% 
+  mutate(eleito = case_when(
+    TOTAL_VOTOS > 2000 ~ "Não eleito",
+    TOTAL_VOTOS <= 2000 ~ "Eleito"
+  ))
 
-# Outra forma de calcular
-dados_eleicao %>% 
-  select(TOTAL_VOTOS, SIGLA_PARTIDO) %>% 
-  filter(SIGLA_PARTIDO == "PT") %>% 
-  summarise('Média de votos do PT' = mean(TOTAL_VOTOS))
+bd <- bd %>% 
+  mutate(mineiro = case_when(
+    SIGLA_UF == "MG" & SIGLA_PARTIDO == "PT" ~ "Mineiro Petista",
+    SIGLA_UF == "MG" & SIGLA_PARTIDO != "PT" ~ "Resto"
+  ))
 
-# 8 - Qual a média de votação do PSDB? -----------------------------------------
+# ESTATISTICAS DESCRITIVAS -----------------------------------------------------
 
-dados_pt = filter(dados, SIGLA_PARTIDO == "PSDB") # Filtra somente o PSDB
-mean(dados_pt$TOTAL_VOTOS)                      # Calculamos a me'dia
+# Mostra os nomes das variaveis
+names(bd)
 
-# Outra forma de calcular
-dados_eleicao %>% 
-  select(TOTAL_VOTOS, SIGLA_PARTIDO) %>% 
-  filter(SIGLA_PARTIDO == "PSDB") %>% 
-  summarise('Média de votos do PSDB' = mean(TOTAL_VOTOS))
+# Dimensões do bd
+dim(bd)
 
-# 7 e 8 ------------------------------------------------------------------------
+# mostra os 6 primeiros casos
+head(bd)
 
-# Tirar a me'dia de todos os partidos
-tabela <- dados_eleicao %>% 
-  group_by(SIGLA_PARTIDO) %>% 
-  summarise(media = mean(TOTAL_VOTOS))
+# mostra os 6 ultimos casos
+tail(bd)
 
-tabela  
+# tira a classe da variavel
+class(bd$Petal.Length)
+# tirar a classe do banco
+class(bd)
 
-# Ordenar de acordo com a me'dia
-arrange(tabela, -media)
+# estrutura do bd
+str(bd)
 
-# Filtrar somente PT e PSDB
-resposta = filter(tabela, SIGLA_PARTIDO == "PT" | SIGLA_PARTIDO == "PSDB")
+# tira media 
+mean(bd$Petal.Length, na.rm = T)
 
-resposta
+# tirar mediana
+median(bd$Sepal.Width, na.rm = T)
 
-# GERAR TABELA (EXTRA) ---------------------------------------------------------
+# desvio padrão
+sd(bd$Petal.Width, na.rm = T)
 
-# Para transformar os dataframes que geramos em tabelas, podemos utilizar
-# o pacote "flextable". Para instalar, basta rodar no console:
-# install.packages("flextable"). 
+# max
+max(bd$Sepal.Width)
 
-# As funções desse pacote formatam as tabelas e as deixam no ponto para
-# serem exportadas para o Word.
+# min
+min(bd$Sepal.Length)
 
-# Vamos testar com o exemplo das estati'sticas descritivas dos tres tipos
-# de flor vistos anteriormente
+# resume as informações da varaivel
+summary(bd$Sepal.Length)
 
-# Criamos uma data frame (objeto chamado df) com as estati'sticas
-df <- iris %>% 
-  group_by(Species) %>% 
-  summarise(media = mean(Petal.Width),
-            mediana = median(Petal.Width),
-            variancia = var(Petal.Width),
-            desvio_padrao = sd(Petal.Width))
+# Visualização do banco
+View(bd)
 
-# Ler o pacote
-library(flextable)
+# Olhada rápida
+glimpse(bd)
 
-# Criamos um objeto chamado 'tabela' que sera' o nosso resultado
-tabela <- df %>% 
-  flextable() %>%                     # Funcao para gerar a tabela
-  theme_vanilla() %>%                 # Tema escolhido
-  align_nottext_col('center') %>%     # Centraliza o texto
-  autofit()                           # Compacta a tabela de acordo com as informacoes
+# Frequencia
+freq(bd$variavel)
 
-# Ver o resultado
-tabela
+# Describe
+describe(banco)
 
-# Para salvar em Word, o pacote oferece a funcao save_as_docx()
-
-save_as_docx(
-  # Título = objeto resultante(tabela)
-  'Tabela - Flores' = tabela,           # Definimos o título da tabela
-  path = here('TabelaFlores.docx'))     # Definimos onde ficara' salva e 
-                                        # o nome do arquivo
-
-# Um arquivo 'docx' e' gerado no local especificado
+# Fim --------------------------------------------------------------
